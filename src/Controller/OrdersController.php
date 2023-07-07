@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Orders;
 use App\Repository\OrdersRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,10 +11,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 #[Route('/api/orders')]
 class OrdersController extends AbstractController
 {
-    
+
     public function __construct(private OrdersRepository $ordrep)
     {
 
@@ -54,10 +56,11 @@ class OrdersController extends AbstractController
     #[Route(methods: 'POST')]
     public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
-        
+
         try {
             $orders = $serializer->deserialize($request->getContent(), Orders::class, 'json');
         } catch (\Exception $error) {
+
             return $this->json('Invalid body', 400);
         }
         $errors = $validator->validate($orders);

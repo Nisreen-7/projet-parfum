@@ -30,8 +30,7 @@ class OptionsRepository
      {
  
          $connection = Database::getConnection();
-         $query = $connection->prepare("SELECT * FROM options
-         WHERE options.id=:id");
+         $query = $connection->prepare("SELECT * FROM options WHERE id=:id");
          $query->bindValue(':id', $id);
          $query->execute();
          foreach ($query->fetchAll() as $line) {
@@ -79,7 +78,7 @@ class OptionsRepository
     {
 
         $connection = Database::getConnection();
-        $query = $connection->prepare("UPDATE options SET :label=label, :price=price,:id_product=id_product WHERE id=:id");
+        $query = $connection->prepare("UPDATE options SET label=:label, price=:price,id_product=:id_product WHERE id=:id");
         $query->bindValue(':label', $options->getLabel());
         $query->bindValue(':price', $options->getPrice());
         $query->bindValue(':id_product', $options->getIdProduct());

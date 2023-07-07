@@ -19,7 +19,7 @@ class OrderItemRepository
         $query = $connection->prepare("SELECT * FROM orderitem");
         $query->execute();
         foreach ($query->fetchAll() as $line) {
-            $list[] = new OrderItem($line["quantity"], $line["itemPrice"], $line["id_product"], $line["id_orders"], $line["id"]);
+            $list[] = new OrderItem($line["quantity"], $line["itemPrice"],  $line["id_orders"],$line["id_product"], $line["id"]);
         }
         return $list;
     }
@@ -28,12 +28,11 @@ class OrderItemRepository
     {
 
         $connection = Database::getConnection();
-        $query = $connection->prepare("SELECT * FROM orderitem
-        WHERE orderitem.id=:id");
+        $query = $connection->prepare("SELECT * FROM orderitem WHERE id=:id");
         $query->bindValue(':id', $id);
         $query->execute();
         foreach ($query->fetchAll() as $line) {
-            return new OrderItem($line["quantity"], $line["itemPrice"], $line["id_product"], $line["id_orders"], $line["id"]);
+            return new OrderItem($line["quantity"], $line["itemPrice"],  $line["id_orders"],$line["id_product"], $line["id"]);
         }
         return null;
 
@@ -72,9 +71,8 @@ class OrderItemRepository
         $query = $connection->prepare("INSERT INTO orderitem (quantity, itemPrice, id_orders, id_product) VALUES (:quantity, :itemPrice, :id_orders, :id_product)");
         $query->bindValue(':quantity', $orderItem->getQuantity());
         $query->bindValue(':itemPrice', $orderItem->getItemPrice());
-        $query->bindValue(':id_order', $orderItem->getIdOrder());
+        $query->bindValue(':id_orders', $orderItem->getIdOrder());
         $query->bindValue(':id_product', $orderItem->getIdProduct());
-
         $query->execute();
 
         $orderItem->setId($connection->lastInsertId());
@@ -101,10 +99,10 @@ class OrderItemRepository
     {
 
         $connection = Database::getConnection();
-        $query = $connection->prepare("UPDATE orderitem SET quantity:quantity,itemPrice:itemPrice, id_order:id_order, id_product:id_product WHERE id=:id");
+        $query = $connection->prepare("UPDATE orderitem SET quantity=:quantity,itemPrice=:itemPrice, id_orders=:id_orders, id_product=:id_product WHERE id=:id");
         $query->bindValue(':quantity', $OrderItem->getQuantity());
         $query->bindValue(':itemPrice', $OrderItem->getItemPrice());
-        $query->bindValue(':id_order', $OrderItem->getIdOrder());
+        $query->bindValue(':id_orders', $OrderItem->getIdOrder());
         $query->bindValue(':id_product', $OrderItem->getIdProduct());
         $query->bindValue(":id", $OrderItem->getId());
 

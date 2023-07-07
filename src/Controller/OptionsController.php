@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Options;
 use App\Repository\OptionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Flex\Options;
+
 #[Route('/api/options')]
 class OptionsController extends AbstractController
 {

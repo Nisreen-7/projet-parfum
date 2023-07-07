@@ -5,23 +5,23 @@ namespace App\Tests;
 use App\Repository\Database;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class ProjetParfumOrdersTest extends WebTestCase
-{
-
-    public function setUp(): void
+class ProjetParfumOrderItemTest extends WebTestCase
+{public function setUp(): void
     {
         Database::getConnection()->query(file_get_contents(__DIR__ . '/../database.sql'));
     }
     public function testGetAll(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/api/orders');
+        $client->request('GET', '/api/orderitem');
         $json = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertResponseIsSuccessful();
         $this->assertNotEmpty($json);
-        $this->assertIsString($json[0]['createdAt']);
-        $this->assertIsString($json[0]['customerName']);
+        $this->assertIsInt($json[0]['quantity']);
+        $this->assertIsFloat($json[0]['itemPrice']);
+        $this->assertIsInt($json[0]['idProduct']);
+        $this->assertIsInt($json[0]['idOrder']);
         $this->assertIsInt($json[0]['id']);
 
     }
@@ -29,12 +29,14 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testGetAllSuccess(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/api/orders');
+        $client->request('GET', '/api/orderitem');
         $json = json_decode($client->getResponse()->getContent(), true);
         $this->assertResponseIsSuccessful();
         $this->assertNotEmpty($json);
-        $this->assertIsString($json[0]['createdAt']);
-        $this->assertIsString($json[0]['customerName']);
+        $this->assertIsInt($json[0]['quantity']);
+        $this->assertIsFloat($json[0]['itemPrice']);
+        $this->assertIsInt($json[0]['idProduct']);
+        $this->assertIsInt($json[0]['idOrder']);
         $this->assertIsInt($json[0]['id']);
 
     }
@@ -42,12 +44,14 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testGetOneSuccess(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/api/orders/1');
+        $client->request('GET', '/api/orderitem/1');
         $json = json_decode($client->getResponse()->getContent(), true);
         $this->assertResponseIsSuccessful();
         $this->assertNotEmpty($json);
-        $this->assertIsString($json['createdAt']);
-        $this->assertIsString($json['customerName']);
+        $this->assertIsInt($json['quantity']);
+        $this->assertIsFloat($json['itemPrice']);
+        $this->assertIsInt($json['idProduct']);
+        $this->assertIsInt($json['idOrder']);
         $this->assertIsInt($json['id']);
 
     }
@@ -57,7 +61,7 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testGetOneNotFound(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/api/orders/100');
+        $client->request('GET', '/api/orderitem/100');
         $json = json_decode($client->getResponse()->getContent(), true);
         $this->assertResponseStatusCodeSame(404);
     }
@@ -67,10 +71,11 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testPostSuccess(): void
     {
         $client = static::createClient();
-        $client->request('POST', '/api/orders', content: json_encode([
-            'createdAt' => '1998-05-14',
-            'customerName'=>'Nesrine'
-
+        $client->request('POST', '/api/orderitem', content: json_encode([
+            'quantity' => 12,
+            'itemPrice' => 68.99,
+            'idProduct' => 1,
+            'idOrder' => 1
         ]));
         $json = json_decode($client->getResponse()->getContent(), true);
         $this->assertResponseIsSuccessful();
@@ -81,33 +86,32 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testPatchSuccess(): void
     {
         $client = static::createClient();
-        $client->request('PATCH', '/api/orders/1', content: json_encode([
-            'customerName' => 'Nisreen',
+        $client->request('PATCH', '/api/orderitem/1', content: json_encode([
+            'quantity' => 3,
         ]));
         $json = json_decode($client->getResponse()->getContent(), true);
         $this->assertResponseIsSuccessful();
-
 
     }
 
     public function testPostValidationFailed(): void
     {
         $client = static::createClient();
-        $client->request('POST', '/api/orders', content: json_encode([
-            'createdAt' => '2023-07-07',
-            'customerName' =>''
+        $client->request('POST', '/api/orderitem', content: json_encode([
+            'quantity' => -12,
+            'itemPrice' => 68.99,
+            'idProduct' => 1,
+            'idOrder' => 1
         ]));
         $json = json_decode($client->getResponse()->getContent(), true);
 
         $this->assertResponseStatusCodeSame(400);
 
-        $this->assertStringContainsString('customerName', $json['errors']['detail']);
-
     }
     public function testPatchNotFound(): void
     {
         $client = static::createClient();
-        $client->request('PATCH', '/api/orders/100');
+        $client->request('PATCH', '/api/orderitem/100');
         $this->assertResponseStatusCodeSame(404);
 
 
@@ -115,7 +119,7 @@ class ProjetParfumOrdersTest extends WebTestCase
     public function testDeleteSuccess(): void
     {
         $client = static::createClient();
-        $client->request('DELETE', '/api/orders/1');
+        $client->request('DELETE', '/api/orderitem/1');
         $this->assertResponseIsSuccessful();
 
     }
