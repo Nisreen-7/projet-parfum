@@ -1,8 +1,8 @@
--- Active: 1685437711224@@127.0.0.1@3306@projet_parfum
+-- Active: 1685527305804@@127.0.0.1@3306@projet_parfum
 
-DROP TABLE IF EXISTS options_orderItem;
+DROP TABLE IF EXISTS options_orderitem;
 
-DROP TABLE IF EXISTS orderItem;
+DROP TABLE IF EXISTS orderitem;
 
 DROP TABLE IF EXISTS options;
 
@@ -11,13 +11,6 @@ DROP TABLE IF EXISTS product;
 DROP TABLE IF EXISTS orders;
 
 DROP TABLE IF EXISTS shop;
-
-CREATE TABLE
-    orders (
-        id INT PRIMARY KEY AUTO_INCREMENT,
-        createdAt DATE NOT NULL,
-        customerName VARCHAR(255) NOT NULL
-    );
 
 CREATE TABLE
     shop (
@@ -47,6 +40,13 @@ CREATE TABLE
     );
 
 CREATE TABLE
+    orders (
+        id INT PRIMARY KEY AUTO_INCREMENT,
+        createdAt DATE NOT NULL,
+        customerName VARCHAR(255) NOT NULL
+    );
+
+CREATE TABLE
     orderitem (
         id INT PRIMARY KEY AUTO_INCREMENT,
         quantity INT NOT NULL,
@@ -73,9 +73,11 @@ VALUES (
         'NNCM',
         '27 rue de la parfumerie perpette-les-bains'
     );
+
 INSERT INTO
     `shop` (`id`, `name`, `address`)
-VALUES (2,'L\'odeurs','rue M2I');
+VALUES (2, 'L\'odeurs', 'rue M2I');
+
 INSERT INTO
     `product` (
         `id`,
@@ -154,27 +156,6 @@ INSERT INTO
     )
 VALUES (1, 5, 725.36, 2, 1);
 
-SELECT *
-FROM product
-    LEFT JOIN shop ON product.id_shop = shop.id
-WHERE product.id_shop = 1;
-
-SELECT *
-FROM orders
-    LEFT JOIN orderitem ON orderitem.id_orders = orders.id
-WHERE
-    orderitem.id_orders = 1;
-
 INSERT INTO
-    `options_orderitem` (
-        `id_options`,
-        `id_orderitem`
-    )
-VALUES (1,1),(2,1),(3,1),(4,1);
-
-SELECT *
-FROM orderitem
-    LEFT JOIN product ON product.id = orderitem.id_product
-    LEFT JOIN options_orderitem ON options_orderitem.id_orderitem = orderitem.id
-    LEFT JOIN options ON options.id = options_orderitem.id_options
-WHERE orderitem.id_orders = 1;
+    `options_orderitem` (`id_options`, `id_orderitem`)
+VALUES (1, 1), (2, 1), (3, 1), (4, 1);
