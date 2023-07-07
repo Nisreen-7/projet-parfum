@@ -55,7 +55,6 @@ class ProductController extends AbstractController
     #[Route(methods: 'POST')]
     public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
-        
         try {
             $product = $serializer->deserialize($request->getContent(), Product::class, 'json');
         } catch (\Exception $error) {

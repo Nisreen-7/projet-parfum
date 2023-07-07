@@ -28,8 +28,7 @@ class ProductRepository
     {
 
         $connection = Database::getConnection();
-        $query = $connection->prepare("SELECT * FROM product
-        WHERE product.id=:id");
+        $query = $connection->prepare("SELECT * FROM product WHERE id=:id");
         $query->bindValue(':id', $id);
         $query->execute();
         foreach ($query->fetchAll() as $line) {
@@ -47,12 +46,13 @@ class ProductRepository
     public function persist(Product $product)
     {
         $connection = Database::getConnection();
-        $query = $connection->prepare("INSERT INTO shop (label,basePrice,description,picture,id_shop) VALUES (:label, :basePrice,:description,:picture,:id_shop)");
+        $query = $connection->prepare("INSERT INTO product (label,basePrice,description,picture,id_shop,id) VALUES (:label, :basePrice,:description,:picture,:id_shop,:id)");
         $query->bindValue(':label', $product->getLabel());
         $query->bindValue(':basePrice', $product->getBasePrice());
         $query->bindValue(':description', $product->getDescription());
         $query->bindValue(':picture', $product->getPicture());
-        $query->bindValue(':id_shop', $product->getId_shop());
+        $query->bindValue(':id_shop', $product->getIdShop());
+        $query->bindValue(':id', $product->getId());
         $query->execute();
 
         $product->setId($connection->lastInsertId());
@@ -80,12 +80,12 @@ class ProductRepository
     {
 
         $connection = Database::getConnection();
-        $query = $connection->prepare("UPDATE product SET :label=label, :basePrice=basePrice,:description=description,:picture=picture,:id_shop=id_shop WHERE id=:id");
+        $query = $connection->prepare("UPDATE product SET label=:label, basePrice=:basePrice,description=:description,picture=:picture,id_shop=:id_shop WHERE id=:id");
         $query->bindValue(':label', $product->getLabel());
         $query->bindValue(':basePrice', $product->getBasePrice());
         $query->bindValue(':description', $product->getDescription());
         $query->bindValue(':picture', $product->getPicture());
-        $query->bindValue(':id_shop', $product->getId_shop());
+        $query->bindValue(':id_shop', $product->getIdShop());
         $query->bindValue(":id", $product->getId());
 
         $query->execute();

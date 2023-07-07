@@ -51,7 +51,7 @@ class OptionsRepository
         $query = $connection->prepare("INSERT INTO options (label,price,id_product) VALUES (:label, :price,:id_product)");
         $query->bindValue(':label', $options->getLabel());
         $query->bindValue(':price', $options->getPrice());
-        $query->bindValue(':id_product', $options->getId_product());
+        $query->bindValue(':id_product', $options->getIdProduct());
         $query->execute();
 
         $options->setId($connection->lastInsertId());
@@ -82,7 +82,7 @@ class OptionsRepository
         $query = $connection->prepare("UPDATE options SET :label=label, :price=price,:id_product=id_product WHERE id=:id");
         $query->bindValue(':label', $options->getLabel());
         $query->bindValue(':price', $options->getPrice());
-        $query->bindValue(':id_product', $options->getId_product());
+        $query->bindValue(':id_product', $options->getIdProduct());
         $query->bindValue(":id", $options->getId());
 
         $query->execute();

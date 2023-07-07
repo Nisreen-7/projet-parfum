@@ -6,16 +6,17 @@ class Options {
    
     private string $label;
     private float $price;
-    private int $id_product;
+    private int $idProduct;
     private ?int $id;
-    public function __construct(string $label,float $price,int $id_product,?int $id = null) {
+    public function __construct(string $label,float $price,int $idProduct,?int $id = null) {
         $this->label = $label;
 		$this->price = $price;
-		$this->id_product = $id_product;
+		$this->idProduct = $idProduct;
 		$this->id = $id;
     }
 
 	
+
 
 	/**
 	 * @return string
@@ -52,16 +53,16 @@ class Options {
 	/**
 	 * @return int
 	 */
-	public function getId_product(): int {
-		return $this->id_product;
+	public function getIdProduct(): int {
+		return $this->idProduct;
 	}
 	
 	/**
-	 * @param int $id_product 
+	 * @param int $idProduct 
 	 * @return self
 	 */
-	public function setId_product(int $id_product): self {
-		$this->id_product = $id_product;
+	public function setIdProduct(int $idProduct): self {
+		$this->idProduct = $idProduct;
 		return $this;
 	}
 	

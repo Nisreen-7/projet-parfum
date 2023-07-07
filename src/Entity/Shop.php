@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Entity;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 class Shop
 {
+	#[Assert\NotBlank]
 	private string $name;
+	#[Assert\NotBlank]
 	private string $address;
 	private ?int $id;
 

@@ -73,7 +73,9 @@ VALUES (
         'NNCM',
         '27 rue de la parfumerie perpette-les-bains'
     );
-
+INSERT INTO
+    `shop` (`id`, `name`, `address`)
+VALUES (2,'L\'odeurs','rue M2I');
 INSERT INTO
     `product` (
         `id`,

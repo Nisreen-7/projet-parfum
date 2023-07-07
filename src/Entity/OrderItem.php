@@ -6,18 +6,20 @@ class OrderItem{
 
     private int $quantity;
     private float $itemPrice;
-    private int $id_product;
-    private int $id_order;
+    private int $idProduct;
+    private int $idOrder;
     private ?int $id;
-    public function __construct(int $quantity,float $itemPrice,int $id_order,int $id_product,?int $id=null){
+    public function __construct(int $quantity,float $itemPrice,int $idOrder,int $idProduct,?int $id=null){
         $this->quantity = $quantity;
 		$this->itemPrice = $itemPrice;
-        $this->id_order = $id_order;
-		$this->id_product = $id_product;
+        $this->idOrder = $idOrder;
+		$this->idProduct = $idProduct;
 		$this->id = $id;
     }
       
 
+
+	
 
 	/**
 	 * @return int
@@ -54,32 +56,32 @@ class OrderItem{
 	/**
 	 * @return int
 	 */
-	public function getId_product(): int {
-		return $this->id_product;
+	public function getIdProduct(): int {
+		return $this->idProduct;
 	}
 	
 	/**
-	 * @param int $id_product 
+	 * @param int $idProduct 
 	 * @return self
 	 */
-	public function setId_product(int $id_product): self {
-		$this->id_product = $id_product;
+	public function setIdProduct(int $idProduct): self {
+		$this->idProduct = $idProduct;
 		return $this;
 	}
 	
 	/**
 	 * @return int
 	 */
-	public function getId_order(): int {
-		return $this->id_order;
+	public function getIdOrder(): int {
+		return $this->idOrder;
 	}
 	
 	/**
-	 * @param int $id_order 
+	 * @param int $idOrder 
 	 * @return self
 	 */
-	public function setId_order(int $id_order): self {
-		$this->id_order = $id_order;
+	public function setIdOrder(int $idOrder): self {
+		$this->idOrder = $idOrder;
 		return $this;
 	}
 	

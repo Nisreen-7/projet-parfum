@@ -28,7 +28,7 @@ class ShopController extends AbstractController
     #[Route('/{id}', methods: 'GET')]
     public function one(int $id): JsonResponse
     {
-        $shop = $this->shoprep->findByProduct($id);
+        $shop = $this->shoprep->findById($id);
         if ($shop == null) {
             return $this->json('Resource Not Found', 404);
 
