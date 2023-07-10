@@ -119,4 +119,17 @@ class ProjetParfumOptionsTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
     }
+    public function testGetOneOptionSuccess(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api/options/product/1');
+        $json = json_decode($client->getResponse()->getContent(), true);
+        $this->assertResponseIsSuccessful();
+        $this->assertNotEmpty($json);
+        $this->assertIsString($json[0]['label']);
+        $this->assertIsFloat($json[0]['price']);
+        $this->assertIsInt($json[0]['idProduct']);
+        $this->assertIsInt($json[0]['id']);
+
+    }
 }

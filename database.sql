@@ -1,8 +1,8 @@
--- Active: 1685437711224@@127.0.0.1@3306@projet_parfum
+-- Active: 1685527305804@@127.0.0.1@3306@projet_parfum
 
-DROP TABLE IF EXISTS options_orderItem;
+DROP TABLE IF EXISTS options_orderitem;
 
-DROP TABLE IF EXISTS orderItem;
+DROP TABLE IF EXISTS orderitem;
 
 DROP TABLE IF EXISTS options;
 

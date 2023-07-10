@@ -86,4 +86,21 @@ class OptionsRepository
 
         $query->execute();
     }
+    /**
+     * @return Options[]
+     */
+    public function findByProduct(int $id): array
+    {
+        $list = [];
+        $connection = Database::getConnection();
+        $query = $connection->prepare("SELECT * FROM options
+        WHERE options.id_product=:id");
+        $query->bindValue(':id', $id);
+        $query->execute();
+        foreach ($query->fetchAll() as $line) {
+            $list[] = new Options( $line["label"], $line["price"],$line["id_product"], $line["id"]);
+        }
+
+        return $list;
+    }
 }

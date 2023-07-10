@@ -7,7 +7,6 @@ use App\Repository\OptionsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -99,5 +98,10 @@ class OptionsController extends AbstractController
         return $this->json($options, 201);
 
 
+    }
+    #[Route('/product/{id}', methods: 'GET')]
+    public function findProduct($id): JsonResponse
+    {
+        return $this->json($this->optrep->findByProduct($id));
     }
 }
