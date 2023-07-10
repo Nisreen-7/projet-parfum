@@ -73,9 +73,11 @@ VALUES (
         'NNCM',
         '27 rue de la parfumerie perpette-les-bains'
     );
+
 INSERT INTO
     `shop` (`id`, `name`, `address`)
-VALUES (2,'L\'odeurs','rue M2I');
+VALUES (2, 'L\'odeurs', 'rue M2I');
+
 INSERT INTO
     `product` (
         `id`,
@@ -162,15 +164,11 @@ WHERE product.id_shop = 1;
 SELECT *
 FROM orders
     LEFT JOIN orderitem ON orderitem.id_orders = orders.id
-WHERE
-    orderitem.id_orders = 1;
+WHERE orderitem.id_orders = 1;
 
 INSERT INTO
-    `options_orderitem` (
-        `id_options`,
-        `id_orderitem`
-    )
-VALUES (1,1),(2,1),(3,1),(4,1);
+    `options_orderitem` (`id_options`, `id_orderitem`)
+VALUES (1, 1), (2, 1), (3, 1), (4, 1);
 
 SELECT *
 FROM orderitem
