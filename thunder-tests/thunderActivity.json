@@ -200,5 +200,19 @@
             "form": []
         },
         "tests": []
+    },
+    {
+        "_id": "6346c4e8-5e16-4057-8340-68c24121755e",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:8000/api/shop/1",
+        "url": "http://localhost:8000/api/shop/1",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2023-07-10T11:45:46.818Z",
+        "modified": "2023-07-10T11:45:46.818Z",
+        "headers": [],
+        "params": [],
+        "tests": []
     }
 ]

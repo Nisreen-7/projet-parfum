@@ -98,6 +98,10 @@ class OptionsController extends AbstractController
         $this->optrep->update($options);
         return $this->json($options, 201);
 
-
+    }
+    #[Route('/product/{id}', methods: 'GET')]
+    public function findProduct($id): JsonResponse
+    {
+        return $this->json($this->optrep->findByProduct($id));
     }
 }

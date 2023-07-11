@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Product;
 use App\Entity\Shop;
 
 class ShopRepository
@@ -101,4 +102,18 @@ class ShopRepository
 
         $query->execute();
     }
+    public function findByShop(int $id): array
+    {
+        $list = [];
+        $connection = Database::getConnection();
+        $query = $connection->prepare("SELECT * FROM product
+        where id_shop=:id");
+         $query->bindValue(':id', $id);
+        $query->execute();
+        foreach ($query->fetchAll() as $line) {
+            $list[] = new Product($line["label"], $line["basePrice"], $line["description"], $line["picture"], $line["id_shop"], $line["id"]);
+        }
+        return $list;
+    }
+
 }

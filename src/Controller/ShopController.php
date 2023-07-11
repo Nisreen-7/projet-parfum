@@ -54,7 +54,7 @@ class ShopController extends AbstractController
     #[Route(methods: 'POST')]
     public function add(Request $request, SerializerInterface $serializer, ValidatorInterface $validator)
     {
-        
+
         try {
             $shop = $serializer->deserialize($request->getContent(), Shop::class, 'json');
         } catch (\Exception $error) {
@@ -99,5 +99,16 @@ class ShopController extends AbstractController
         return $this->json($shop, 201);
 
 
+    }
+
+    #[Route('/{id}/product', methods: 'GET')]
+    public function shop(int $id): JsonResponse
+    {
+        $product = $this->shoprep->findByShop($id);
+        if ($product == null) {
+            return $this->json('Resource Not Found', 404);
+
+        }
+        return $this->json($product);
     }
 }

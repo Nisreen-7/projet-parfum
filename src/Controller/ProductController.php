@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
-    
+
     public function __construct(private ProductRepository $proprep)
     {
 
@@ -98,6 +98,14 @@ class ProductController extends AbstractController
 
 
 
+    }
+
+    #[Route('/search/{term}', methods: 'GET')]
+    public function search(string $term): JsonResponse
+    {
+        $product = $this->proprep->search($term);
+
+        return $this->json($product);
     }
 
 }

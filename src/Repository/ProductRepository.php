@@ -24,6 +24,8 @@ class ProductRepository
 
 
 
+
+
     public function findById(int $id): ?Product
     {
 
@@ -89,5 +91,19 @@ class ProductRepository
         $query->bindValue(":id", $product->getId());
 
         $query->execute();
+    }
+
+    public function search(string $term): array
+    {
+        $list = [];
+        $connection = Database::getConnection();
+        $query = $connection->prepare("select * From product where CONCAT(label) LIKE :term");
+        $query->bindValue(':term', '%' . $term . '%');
+
+        $query->execute();
+        foreach ($query->fetchAll() as $line) {
+            $list[] = new Product($line["label"], $line["basePrice"], $line["description"], $line["picture"], $line["id_shop"], $line["id"]);
+        }
+        return $list;
     }
 }
